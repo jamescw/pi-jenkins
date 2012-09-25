@@ -1,19 +1,26 @@
+import RPi.GPIO as GPIO
 
 class BiColourLed(object):
 
-    def __init__(self, red_pin=None, green_pin=None):
+    def __init__(self, red_pin, green_pin):
         self.red_pin = red_pin
         self.green_pin = green_pin
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(red_pin, GPIO.OUT)
+	GPIO.setup(green_pin, GPIO.OUT)
 
-    @property
     def off(self):
-        print "OFF"
-
+	GPIO.output(self.red_pin, False)
+        GPIO.output(self.green_pin, False)	
+	
     def red(self):
-        print "RED"
+	GPIO.output(self.red_pin, True)
+        GPIO.output(self.green_pin, False) 
 
     def green(self):
-        print "GREEN"
+	GPIO.output(self.red_pin, False)
+        GPIO.output(self.green_pin, True) 
 
     def yellow(self):
-        print "YELLOW"
+	GPIO.output(self.red_pin, True)
+        GPIO.output(self.green_pin, True) 
