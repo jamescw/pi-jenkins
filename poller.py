@@ -7,8 +7,8 @@ from leds import BiColourLed
 JENKINS_URL = "http://jenkins.uktv.rethought-solutions.com/"
 
 LEDS = [
-    BiColourLed(24,25),
-    BiColourLed(18,23)
+    BiColourLed(24, 25),
+    BiColourLed(18, 23)
 ]
 
 JOBS = [
@@ -23,7 +23,6 @@ JOBS = [
 ]
 
 def poll():
-    blink = True
     jenkins = Jenkins(JENKINS_URL)
     while True:
         remote_jobs = jenkins.get_jobs()
@@ -32,16 +31,14 @@ def poll():
                 if local['name'] == remote['name']:
                     led = local['led']
                     if remote['color'] == 'blue':
-                        led.green()
+                        led.green(True)
                     elif remote['color'] == 'red':
-                        led.red()
+                        led.red(True)
                     else:
-                        if blink:
-                            led.off()
-			    blink = False
+                        if led.off():
+                            led.red()
                         else:
-                            led.yellow()
-			    blink = True
+                            led.off()
         time.sleep(1)
 
 
