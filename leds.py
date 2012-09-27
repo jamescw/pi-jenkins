@@ -28,11 +28,24 @@ class BiColourLed(object):
         else:
             raise KeyError("This LED does not support colour {0}".format(colour))
 
-    def __getattr__(self, colour):
-        return self._set_colour(colour)
+#   Ideally what I want to do but causes recursion
+#    def __getattr__(self, colour):
+#        return self._set_colour(colour)
+#
+#    def __setattr__(self, colour, value):
+#        return self._set_colour(colour, value)
 
-    def __setattr__(self, colour, value):
-        return self._set_colour(colour, value)
+    @property
+    def off(self, value=None):
+        return self._set_colour('off', value)
+
+    @property
+    def red(self, value=None):
+        return self._set_colour('red', value)
+
+    @property
+    def green(self, value = None):
+        return self._set_colour('green', value)
 
     def __repr__(self):
         return "LED is state is: ".format(self.colours)
