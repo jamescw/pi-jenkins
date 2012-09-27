@@ -36,9 +36,9 @@ def poll():
                         led.red(True)
                     else:
                         if led.off():
-                            led.red()
+                            led.yellow(True)
                         else:
-                            led.off()
+                            led.off(True)
         time.sleep(1)
 
 
